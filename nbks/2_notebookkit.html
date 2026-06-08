@@ -34,7 +34,7 @@
     ````
     npm add @observablehq/notebook-kit
     ````
-    9. Now open up your plain text editor (see above). Find and edit the file `package.json` which has been created by the previous step inside your `ObservableNotebooks` folder. You can just replace the entire contents of the file with the following (it’s the `scripts` part that needs adding):
+    9. Now open up your plain text editor (see above). Find and edit the file **`package.json`** which has been created by the previous step inside your `ObservableNotebooks` folder. You can just replace the entire contents of the file with the following (it’s the `scripts` part that needs adding):
     ````json
     {
       "dependencies": {
@@ -51,11 +51,6 @@
     npm run preview
     ````
     Then type `h` and hit return. **Read and explore what is displayed**.
-  </script>
-  <script id="6" type="text/markdown">
-    ---
-    ### Utilities
-    ---
   </script>
   <script id="5" type="module">
     // Add copy buttons to all code blocks
@@ -113,6 +108,5 @@
       observer.observe(document.body, {childList: true, subtree: true});
       invalidation.then(() => observer.disconnect());
     }
-    display(md`This cell contains an add Copy button function.`)
   </script>
 </notebook>
