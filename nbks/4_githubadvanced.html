@@ -78,4 +78,61 @@
     git commit -m "first commit"
     -->
   </script>
+  <script id="51" type="module">
+    // Add copy buttons to all code blocks
+    {
+      const style = html`<style>
+        pre {
+          position: relative;
+        }
+        .copy-btn {
+          position: absolute;
+          top: 6px;
+          right: 6px;
+          padding: 3px 10px;
+          font-size: 12px;
+          cursor: pointer;
+          background: #f0f0f0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+        }
+        .copy-btn:hover { opacity: 1; }
+        .copy-btn.copied {
+          background: #d4edda;
+          border-color: #28a745;
+          color: #28a745;
+        }
+      </style>`;
+      document.head.append(style);
+
+      function addCopyButtons() {
+        document.querySelectorAll("pre").forEach((pre) => {
+          if (pre.querySelector(".copy-btn")) return; // skip if already added
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "Copy";
+          btn.addEventListener("click", () => {
+            const code = pre.querySelector("code")?.innerText ?? pre.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+              btn.textContent = "Copied!";
+              btn.classList.add("copied");
+              setTimeout(() => {
+                btn.textContent = "Copy";
+                btn.classList.remove("copied");
+              }, 2000);
+            });
+          });
+          pre.append(btn);
+        });
+      }
+
+      // Run once and also observe for dynamically rendered cells
+      addCopyButtons();
+      const observer = new MutationObserver(addCopyButtons);
+      observer.observe(document.body, {childList: true, subtree: true});
+      invalidation.then(() => observer.disconnect());
+    }
+  </script>
 </notebook>
